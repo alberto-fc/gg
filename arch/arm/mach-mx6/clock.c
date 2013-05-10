@@ -5731,8 +5731,10 @@ int __init mx6_clocks_init(unsigned long ckil, unsigned long osc,
 
 	base = ioremap(MX6Q_IOMUXC_BASE_ADDR, SZ_4K);
 	/* Close PLL inside SATA PHY. */
-	reg = __raw_readl(base + 0x34);
-	__raw_writel(reg | (1 << 1), base + 0x34);
+	if (cpu_is_mx6q()) {
+		reg = __raw_readl(base + 0x34);
+		__raw_writel(reg | (1 << 1), base + 0x34);
+        }
 
 	/* Close PCIE PHY. */
 	reg = __raw_readl(base + 0x04);
