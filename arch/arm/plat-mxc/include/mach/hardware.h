@@ -88,10 +88,11 @@
  *	AIPS2	0x83f00000+0x100000	->	0xf4300000+0x100000
  */
 #define IMX_IO_P2V(x)	(						\
-			0xf2000000 +					\
+			0xDE400000 +					\
 			(((x) & 0x50000000) >> 6) +			\
 			(((x) & 0x0b000000) >> 4) +			\
 			(((x) & 0x000fffff)))
+
 
 #define IMX_IO_ADDRESS(x)	IOMEM(IMX_IO_P2V(x))
 
