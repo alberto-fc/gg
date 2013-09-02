@@ -789,4 +789,13 @@ config TOUCHSCREEN_DA9052
         help
           Say y here to support the touchscreen found on
           Dialog Semiconductor DA9052 PMIC
+
+config TOUCHSCREEN_PRISM
+	tristate "Prism driver"
+	help
+	  Say Y here if you want support for Prism dualtouch, commonly
+          used with TechNexion ARM SoMs.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called prism.
 endif
