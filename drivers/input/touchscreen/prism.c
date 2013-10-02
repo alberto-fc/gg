@@ -146,11 +146,15 @@ static void prism_work_func(struct work_struct *work) {
                         int ix = ev[0].x;
                         int iy = ev[0].y;
 //                        input_dev_calibrate(prism->st_dev, &ix, &iy);
+			input_report_key(prism->st_dev, BTN_TOUCH, 1);
                         input_report_abs(prism->st_dev, ABS_X, ix);
                         input_report_abs(prism->st_dev, ABS_Y, iy);
                         input_report_abs(prism->st_dev, ABS_PRESSURE, ev[0].pressure);
-                        input_sync(prism->st_dev);
-                }                
+                }
+		else
+			input_report_key(prism->st_dev, BTN_TOUCH, 0);
+		input_sync(prism->st_dev);
+
         }
 	enable_irq(prism->client->irq);        
 }
