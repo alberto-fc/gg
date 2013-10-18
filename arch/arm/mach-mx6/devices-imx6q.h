@@ -16,6 +16,9 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#ifndef _DEVICES_IMX6Q_
+#define _DEVICES_IMX6Q_
+
 #include <mach/mx6.h>
 #include <mach/devices-common.h>
 
@@ -259,3 +262,5 @@ extern const struct imx_rngb_data imx6sl_rngb_data __initconst;
 	imx_add_rngb(&imx6sl_rngb_data);
 
 #define imx6_add_armpmu() imx_add_imx_armpmu()
+
+#endif
