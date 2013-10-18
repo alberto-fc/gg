@@ -6,6 +6,9 @@
  * the terms of the GNU General Public License version 2 as published by the
  * Free Software Foundation.
  */
+#ifndef _DEVICES_COMMON_H
+#define _DEVICES_COMMON_H
+
 #include <linux/kernel.h>
 #include <linux/platform_device.h>
 #include <linux/init.h>
@@ -700,3 +703,5 @@ struct imx_fsl_csi_data {
 };
 struct platform_device *__init imx_add_fsl_csi(
 		const struct imx_fsl_csi_data *data);
+
+#endif
