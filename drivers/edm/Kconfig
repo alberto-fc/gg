@@ -1,0 +1,19 @@
+
+config EDM
+	bool
+	default n
+
+config EDM_EXPANSION
+	bool
+	default n
+
+config WANDBOARD_BASE
+	tristate "Support for Wand baseboard"
+	depends on EDM
+	default y
+	select EDM_EXPANSION
+	help
+	  Include support for the devices on the default wand baseboard.
+
+          If you have a standard Wandboard, say Y.
+
