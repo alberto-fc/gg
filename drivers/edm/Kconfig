@@ -7,7 +7,7 @@ config EDM_EXPANSION
 	bool
 	default n
 
-config WANDBOARD_BASE
+config EDM_BASEBOARD_WAND
 	tristate "Support for Wand baseboard"
 	depends on EDM
 	default y

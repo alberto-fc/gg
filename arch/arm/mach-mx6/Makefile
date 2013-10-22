@@ -24,3 +24,4 @@ obj-$(CONFIG_MACH_IMX_BLUETOOTH_RFKILL) += mx6_bt_rfkill.o
 obj-$(CONFIG_PCI_MSI) += msi.o
 obj-$(CONFIG_FEC) += mx6_fec.o
 obj-$(CONFIG_PM) += pm.o
+obj-$(CONFIG_MACH_WANDBOARD) += board-wand.o
