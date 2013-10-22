@@ -21,15 +21,14 @@ int edm_external_gpio[((EDM_N_EXTERNAL_GPIO) < 10 ? 10 : (EDM_N_EXTERNAL_GPIO))]
 };
 EXPORT_SYMBOL_GPL(edm_external_gpio);
 
-int edm_i2c[3] = { -EINVAL, -EINVAL, -EINVAL };
+int edm_i2c[EDM_NOF_I2C] = { -EINVAL, -EINVAL, -EINVAL };
 EXPORT_SYMBOL_GPL(edm_i2c);
 
 int edm_ddc = -EINVAL;
 EXPORT_SYMBOL_GPL(edm_ddc);
 
-/* Optional; for audio codecs that needs it */
-void *edm_analog_audio_platform_data = 0;
-EXPORT_SYMBOL_GPL(edm_analog_audio_platform_data);
+struct edm_audio_data_t edm_audio_data[EDM_NOF_I2S];
+EXPORT_SYMBOL_GPL(edm_audio_data);
 
 const char *edm_gpio_pin_name[] = {
 	"pin255", "pin256", "pin257", "pin258", "pin259", 
