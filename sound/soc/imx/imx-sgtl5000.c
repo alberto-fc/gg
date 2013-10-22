@@ -355,6 +355,28 @@ static struct platform_driver imx_sgtl5000_audio_driver = {
 		   },
 };
 
+#ifdef CONFIG_EDM
+#include <linux/edm.h>
+
+static int __init imx_sgtl5000_edm_init(void) {
+	int i2s_channel;
+	for (i2s_channel = 0; i2s_channel < EDM_NOF_I2S; i2s_channel++) {
+		if (edm_audio_data[i2s_channel].enabled && edm_audio_data[0].bus_number >= 0) {
+			sprintf(imx_sgtl5000_dai[0].codec_name, "sgtl5000.%1x-%04x",
+				edm_audio_data[i2s_channel].bus_number,
+				edm_audio_data[i2s_channel].bus_address);
+			break;
+		}
+	}
+        return 0;
+}
+
+#else
+
+static int __init imx_sgtl5000_edm_init(void) { }
+
+#endif
+
 static int __init imx_sgtl5000_init(void)
 {
 	int ret;
@@ -367,6 +389,8 @@ static int __init imx_sgtl5000_init(void)
 		imx_sgtl5000_dai[0].codec_name = "sgtl5000.0-000a";
 	else
 		imx_sgtl5000_dai[0].codec_name = "sgtl5000.1-000a";
+
+	imx_sgtl5000_edm_init();
 
 	imx_sgtl5000_snd_device = platform_device_alloc("soc-audio", 1);
 	if (!imx_sgtl5000_snd_device)
