@@ -255,21 +255,17 @@ static int prism_probe(struct i2c_client *client, const struct i2c_device_id *id
         prism->work.entry.next = prism->work.entry.prev = &prism->work.entry;
 
         prism->workq = create_singlethread_workqueue(PRISM_DRIVER_NAME);
-        printk("prism : creating workqueue %p\n", prism->workq);
 	if (prism->workq == NULL) {
 		ret = -ENOMEM;
 		goto error_workqueue;
 	}
 
 	ret = request_irq(client->irq, prism_isr, IRQF_TRIGGER_RISING, client->name, prism);
-        printk("prism : request irq : %i\n", ret);
 	if (ret < 0) goto error_irq;
 
         ret = prism_read_complete(prism);
-        printk("prism : read complete : %i\n", ret);
 	if (ret < 0) goto error_irq_clear;
 
-        printk("prism : probe succesful\n");
         return 0;
                 
         
