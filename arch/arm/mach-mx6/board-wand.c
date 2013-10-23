@@ -503,7 +503,7 @@ static const struct i2c_board_info wand_hdmi_i2c_info = {
 /* ------------------------------------------------------------------------ */
 
 static void wand_init_hdmi(void) {
-	i2c_register_board_info(0, &wand_hdmi_i2c_info, 1);
+	i2c_register_board_info(edm_ddc, &wand_hdmi_i2c_info, 1);
 	imx6q_add_mxc_hdmi_core(&wand_hdmi_core_data);
 	imx6q_add_mxc_hdmi(&wand_hdmi_data);
 	imx6q_add_ipuv3fb(0, wand_hdmi_fb);
@@ -524,7 +524,7 @@ static void wand_init_hdmi(void) {
 static struct fsl_mxc_lcd_platform_data wand_lcdif_data = {
 	.ipu_id = 0,
 	.disp_id = 0,
-	.default_ifmt = IPU_PIX_FMT_RGB24
+	.default_ifmt = IPU_PIX_FMT_RGB666,
 };
 
 /* ------------------------------------------------------------------------ */
@@ -535,7 +535,7 @@ static struct fsl_mxc_ldb_platform_data wand_ldb_data = {
 	.ext_ref = 1,
 	.mode = LDB_SIN0,
 	.sec_ipu_id = 0,
-	.sec_disp_id = 0,
+	.sec_disp_id = 1,
 };
 
 /* ------------------------------------------------------------------------ */

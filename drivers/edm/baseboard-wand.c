@@ -120,7 +120,6 @@ static __init int wandbase_init_sgtl5000(void) {
 		i2c_register_board_info(edm_audio_data[0].bus_number, &wandbase_sgtl5000_i2c_data, 1);
 		platform_device_register(&wandbase_sgtl5000_vdda_reg_devices);
 		platform_device_register(&wandbase_sgtl5000_vddio_reg_devices);
-                printk(" ++++ added sgtl5k to bus %i address %02x\n", edm_audio_data[0].bus_number, edm_audio_data[0].bus_address);
 		ret=0;
 	}
 	return ret;
