@@ -17,3 +17,11 @@ config EDM_BASEBOARD_WAND
 
           If you have a standard Wandboard, say Y.
 
+config EDM_EXPANSION_FWBADAPT
+	tristate "Support for Future WandBoard expansion board"
+	depends on EDM_EXPANSION
+	default n
+	select TOUCHSCREEN_PRISM
+	help
+	  Include support for Future WandBoard Adapter FWBADAPT-7WVGA (TN55) with Prism touchscreen and 7" WVGA
+
