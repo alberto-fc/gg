@@ -21,7 +21,14 @@ config EDM_EXPANSION_FWBADAPT
 	tristate "Support for Future WandBoard expansion board"
 	depends on EDM_EXPANSION
 	default n
-	select TOUCHSCREEN_PRISM
 	help
-	  Include support for Future WandBoard Adapter FWBADAPT-7WVGA (TN55) with Prism touchscreen and 7" WVGA
+	  Include support for Future WandBoard Adapter FWBADAPT-7WVGA-PCAP ("TN55") with Prism touchscreen and 7" WVGA
+	  Don't forget to select the Prism touchscreen driver!
 
+config EDM_EXPANSION_WANDQC
+	tristate "Support for WandBoard QC expansion board"
+	depends on EDM_EXPANSION
+	default n
+	help
+	  Include support for WandBoard Factory Q/C ("TN57") expansion board
+	  This board features a TSC2046 touchscreen, don't forget to select the ADS7846 driver as well!
