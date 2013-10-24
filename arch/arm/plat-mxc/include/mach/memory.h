@@ -65,7 +65,7 @@
 #else
 
 #if defined(CONFIG_ARCH_MX5) || defined(CONFIG_ARCH_MX6)
-#define ARM_DMA_ZONE_SIZE	(184 * SZ_1M)
+#define ARM_DMA_ZONE_SIZE	(64 * SZ_1M)
 #define CONSISTENT_DMA_SIZE	ARM_DMA_ZONE_SIZE
 #else
 #define CONSISTENT_DMA_SIZE     (32 * SZ_1M)

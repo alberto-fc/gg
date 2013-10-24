@@ -860,10 +860,29 @@ static struct viv_gpu_platform_data wand_gpu_pdata = {
 	.reserved_mem_size = SZ_128M + SZ_64M - SZ_16M,
 };
 
+struct wand_imx_vout_mem {
+	resource_size_t res_mbase;
+	resource_size_t res_msize;
+};
+
+static struct wand_imx_vout_mem wand_vout_mem __initdata = {
+	.res_msize = 48 * SZ_1M,
+};
+
 static __init void wand_init_gpu(void) {
+	struct platform_device *voutdev;
 	imx_add_viv_gpu(&wand_gpu_data, &wand_gpu_pdata);
-        imx6q_add_vpu();
-        imx6q_add_v4l2_output(0);
+	imx6q_add_vpu();
+	voutdev = imx6q_add_v4l2_output(0);
+
+	if (wand_vout_mem.res_msize && voutdev) {
+		dma_declare_coherent_memory(&voutdev->dev,
+					    wand_vout_mem.res_mbase,
+					    wand_vout_mem.res_mbase,
+					    wand_vout_mem.res_msize,
+					    (DMA_MEMORY_MAP |
+                                             DMA_MEMORY_EXCLUSIVE));
+	}
 }
 
 
@@ -1060,6 +1079,12 @@ static void __init wand_reserve(void) {
 		phys = memblock_alloc_base(wand_gpu_pdata.reserved_mem_size, SZ_4K, SZ_512M);
 		memblock_remove(phys, wand_gpu_pdata.reserved_mem_size);
 		wand_gpu_pdata.reserved_mem_base = phys;
+	}
+
+	if (wand_vout_mem.res_msize) {
+		phys = memblock_alloc_base(wand_vout_mem.res_msize, SZ_4K, SZ_1G);
+		memblock_remove(phys, wand_vout_mem.res_msize);
+		wand_vout_mem.res_mbase = phys;
 	}
 }
 
