@@ -27,6 +27,9 @@ EXPORT_SYMBOL_GPL(edm_i2c);
 int edm_ddc = -EINVAL;
 EXPORT_SYMBOL_GPL(edm_ddc);
 
+int edm_spi[EDM_NOF_SPI] = { -EINVAL, -EINVAL };
+EXPORT_SYMBOL_GPL(edm_spi);
+
 struct edm_audio_data_t edm_audio_data[EDM_NOF_I2S];
 EXPORT_SYMBOL_GPL(edm_audio_data);
 

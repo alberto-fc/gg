@@ -2,6 +2,8 @@
 #ifndef _edm_h
 #define _edm_h
 
+#include <linux/types.h>
+
 /* External GPIOs correspond to pins 255 -- 264, respectively
 */
 #define EDM_N_EXTERNAL_GPIO 10
@@ -17,6 +19,14 @@ extern int edm_i2c[EDM_NOF_I2C];
 
 /* DDC: the internal CPU I2C channel routed to pins HDMI pins 73, 75 */
 extern int edm_ddc;
+
+/* CPU internal SPI bus numberings:
+	0: 222, 224, 226, 228, 230
+	1: 219, 221, 223, 225, 227
+*/
+#define EDM_NOF_SPI 2
+extern int edm_spi[EDM_NOF_SPI];
+
 
 /* Pointer to a audio structure needed by some boards */
 extern void *edm_audio_platform_data;
