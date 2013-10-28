@@ -145,7 +145,7 @@ static void prism_work_func(struct work_struct *work) {
                 if (ev[0].tip) {
                         int ix = ev[0].x;
                         int iy = ev[0].y;
-//                        input_dev_calibrate(prism->st_dev, &ix, &iy);
+                        input_dev_calibrate(prism->st_dev, &ix, &iy, prism->xmax, prism->ymax);
 			input_report_key(prism->st_dev, BTN_TOUCH, 1);
                         input_report_abs(prism->st_dev, ABS_X, ix);
                         input_report_abs(prism->st_dev, ABS_Y, iy);
