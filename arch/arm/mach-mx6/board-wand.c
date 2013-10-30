@@ -18,6 +18,7 @@
 */
 
 #include <asm/mach-types.h>
+#include <asm/setup.h>
 #include <asm/mach/arch.h>
 #include <asm/mach/time.h>
 
@@ -69,7 +70,7 @@
 /* Syntactic sugar for pad configuration */
 #define IMX6_SETUP_PAD(p) \
 	if (cpu_is_mx6q()) \
-		mxc_iomux_v3_setup_pad(MX6Q_PAD_##p);\
+		mxc_iomux_v3_setup_pad(MX6Q_PAD_##p); \
 	else \
 		mxc_iomux_v3_setup_pad(MX6DL_PAD_##p)
 
@@ -860,12 +861,12 @@ static struct viv_gpu_platform_data wand_gpu_pdata = {
 	.reserved_mem_size = SZ_128M + SZ_64M - SZ_16M,
 };
 
-struct wand_imx_vout_mem {
+struct wand_vout_mem_data {
 	resource_size_t res_mbase;
 	resource_size_t res_msize;
 };
 
-static struct wand_imx_vout_mem wand_vout_mem __initdata = {
+static struct wand_vout_mem_data wand_vout_mem __initdata = {
 	.res_msize = 48 * SZ_1M,
 };
 
@@ -1074,19 +1075,26 @@ static struct sys_timer wand_timer = {
 
 static void __init wand_reserve(void) {
 	phys_addr_t phys;
+	phys_addr_t total_mem = 0;
+	struct meminfo *mi = &meminfo;
+	int i;
+
+	for (i=0; i<mi->nr_banks; i++)
+		total_mem += mi->bank[i].size;
         
 	if (wand_gpu_pdata.reserved_mem_size) {
-		phys = memblock_alloc_base(wand_gpu_pdata.reserved_mem_size, SZ_4K, SZ_512M);
+		phys = memblock_alloc_base(wand_gpu_pdata.reserved_mem_size, SZ_4K, total_mem);
 		memblock_remove(phys, wand_gpu_pdata.reserved_mem_size);
 		wand_gpu_pdata.reserved_mem_base = phys;
 	}
 
 	if (wand_vout_mem.res_msize) {
-		phys = memblock_alloc_base(wand_vout_mem.res_msize, SZ_4K, SZ_1G);
+		phys = memblock_alloc_base(wand_vout_mem.res_msize, SZ_4K, total_mem);
 		memblock_remove(phys, wand_vout_mem.res_msize);
 		wand_vout_mem.res_mbase = phys;
 	}
 }
+
 
 /*****************************************************************************
  *                                                                           
