@@ -719,16 +719,39 @@ static const struct anatop_thermal_platform_data wand_thermal = {
 
 /* ------------------------------------------------------------------------ */
 
+
 static void wand_suspend_enter(void) {
+	gpio_set_value(WAND_USB_HOST_PWR_EN, 0);
+
 	gpio_set_value(WAND_WL_WAKE, 0);
 	gpio_set_value(WAND_BT_WAKE, 0);
+
+	gpio_direction_output(WAND_WL_RST_N, 0);
+	gpio_direction_output(WAND_WL_REF_ON, 0);
+	gpio_direction_output(WAND_WL_REG_ON, 0);
+
+	gpio_direction_output(IMX_GPIO_NR(2, 8), 0);
+	gpio_direction_output(IMX_GPIO_NR(2, 9), 0);
+	gpio_direction_output(IMX_GPIO_NR(2, 10), 0);
+	gpio_direction_output(IMX_GPIO_NR(2, 11), 0);
 }
 
 /* ------------------------------------------------------------------------ */
 
 static void wand_suspend_exit(void) {
+	gpio_direction_output(IMX_GPIO_NR(2, 8), 1);
+	gpio_direction_output(IMX_GPIO_NR(2, 9), 1);
+	gpio_direction_output(IMX_GPIO_NR(2, 10), 1);
+	gpio_direction_output(IMX_GPIO_NR(2, 11), 1);
+
+	gpio_direction_output(WAND_WL_RST_N, 1);
+	gpio_direction_output(WAND_WL_REF_ON, 1);
+	gpio_direction_output(WAND_WL_REG_ON, 1);
+
 	gpio_set_value(WAND_WL_WAKE, 1);
 	gpio_set_value(WAND_BT_WAKE, 1);
+
+	gpio_set_value(WAND_USB_HOST_PWR_EN, 1);
 }
 
 /* ------------------------------------------------------------------------ */
@@ -769,6 +792,7 @@ static const struct mxc_dvfs_platform_data wand_dvfscore_data = {
 static __init void wand_init_pm(void) {
 	enable_wait_mode = false;
 	imx6q_add_anatop_thermal_imx(1, &wand_thermal);
+        imx6_add_armpmu();
 	imx6q_add_pm_imx(0, &wand_pm_data);
 	imx6q_add_dvfs_core(&wand_dvfscore_data);
 	imx6q_add_busfreq();
