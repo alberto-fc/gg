@@ -882,7 +882,7 @@ static const __initconst struct imx_viv_gpu_data wand_gpu_data = {
 };
 
 static struct viv_gpu_platform_data wand_gpu_pdata = {
-	.reserved_mem_size = SZ_128M + SZ_64M - SZ_16M,
+	.reserved_mem_size = 48 * SZ_1M,
 };
 
 struct wand_vout_mem_data {
