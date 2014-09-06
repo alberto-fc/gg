@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 linux-imx6
 ==========
 
@@ -33,3 +34,7 @@ These branches are based on Freescale releases of the same name (minus the 'boun
 [latest-3.10.17]:http://github.com/boundarydevices/linux-imx6/tree/boundary-imx_3.10.17_1.0.0_ga "Boundary 3.10.17 kernel tree"
 
 
+=======
+gg
+==
+>>>>>>> 11554b4b086d18efccb0ff027a972d96cd7ed008
